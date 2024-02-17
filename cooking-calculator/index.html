@@ -416,18 +416,18 @@
 		<main>
 			<form oninput="
 			this.adjustedTime.innerHTML=(
-				(minutes=this.minutes.valueAsNumber, seconds=this.seconds.valueAsNumber, rw=this.recommendedWattage.value, mw=this.microwaveWattage.value) => {
-					const recommendedWattage = parseInt(rw, 10);
-					const microwaveWattage = parseInt(mw, 10);
-					if (isNaN(minutes) || isNaN(seconds) || isNaN(recommendedWattage) || isNaN(microwaveWattage)) {
-						return '<time aria-label=\'Invalid input\'>--:--</time>';
+					(minutes=this.minutes.valueAsNumber || 0, seconds=this.seconds.valueAsNumber || 0, rw=this.recommendedWattage.value, mw=this.microwaveWattage.value) => {
+							const recommendedWattage = parseInt(rw, 10);
+							const microwaveWattage = parseInt(mw, 10);
+							if (isNaN(recommendedWattage) || isNaN(microwaveWattage) || (minutes <= 0 && seconds <= 0)) {
+									return '<time aria-label=\'Invalid input\'>--:--</time>';
+							}
+							const totalSeconds = (minutes * 60 + seconds) * (recommendedWattage / microwaveWattage);
+							const adjustedMinutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+							const adjustedSeconds = Math.round(totalSeconds % 60).toString().padStart(2, '0');
+							const timeString = `${adjustedMinutes}:${adjustedSeconds}`;
+							return `<time datetime='PT${adjustedMinutes}M${adjustedSeconds}S' aria-label='Adjusted time: ${adjustedMinutes} minutes and ${adjustedSeconds} seconds'>${timeString}</time>`;
 					}
-					const totalSeconds = (minutes * 60 + seconds) * (recommendedWattage / microwaveWattage);
-					const adjustedMinutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
-					const adjustedSeconds = Math.round(totalSeconds % 60).toString().padStart(2, '0');
-					const timeString = `${adjustedMinutes}:${adjustedSeconds}`;
-					return `<time datetime='PT${adjustedMinutes}M${adjustedSeconds}S' aria-label='Adjusted time: ${adjustedMinutes} minutes and ${adjustedSeconds} seconds'>${timeString}</time>`;
-				}
 			)()">
 				<fieldset>
 					<legend>Recommended time</legend>
