@@ -430,8 +430,8 @@
 			)()">
 				<fieldset>
 					<legend>Recommended time</legend>
-					<label><input type="number" name="minutes" id="m" value="0" min="0" max="59" step="1" inputmode="decimal" required>minutes</label>
-					<label><input type="number" name="seconds" id="s" value="0" min="0" max="59" step="1" list="suggestedSeconds" inputmode="decimal" required>seconds</label>
+					<label><input type="number" name="minutes" id="m" value="0" min="0" max="59" step="1" inputmode="numeric" maxlength="2" required oninput="this.value = this.value.slice(0, 2)">minutes</label>
+					<label><input type="number" name="seconds" id="s" value="0" min="0" max="59" step="1" list="suggestedSeconds" inputmode="numeric" maxlength="2" required oninput="this.value = this.value.slice(0, 2)">seconds</label>
 					<datalist id="suggestedSeconds">
 						<option value="15"></option>
 						<option value="30"></option>
