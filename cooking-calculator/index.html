@@ -415,17 +415,18 @@
 	<body>
 		<main>
 			<form oninput="
-			this.adjustedTime.value=(
+			this.adjustedTime.innerHTML=(
 				(minutes=this.minutes.valueAsNumber, seconds=this.seconds.valueAsNumber, rw=this.recommendedWattage.value, mw=this.microwaveWattage.value) => {
 					const recommendedWattage = parseInt(rw, 10);
 					const microwaveWattage = parseInt(mw, 10);
 					if (isNaN(minutes) || isNaN(seconds) || isNaN(recommendedWattage) || isNaN(microwaveWattage)) {
-						return '--:--';
+						return '<time aria-label=\'Invalid input\'>--:--</time>';
 					}
 					const totalSeconds = (minutes * 60 + seconds) * (recommendedWattage / microwaveWattage);
 					const adjustedMinutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
 					const adjustedSeconds = Math.round(totalSeconds % 60).toString().padStart(2, '0');
-					return `${adjustedMinutes}:${adjustedSeconds}`;
+					const timeString = `${adjustedMinutes}:${adjustedSeconds}`;
+					return `<time datetime='PT${adjustedMinutes}M${adjustedSeconds}S' aria-label='Adjusted time: ${adjustedMinutes} minutes and ${adjustedSeconds} seconds'>${timeString}</time>`;
 				}
 			)()">
 				<fieldset>
@@ -464,7 +465,9 @@
 						<label><input type="radio" name="microwaveWattage" value="1200">1200 W</label>
 					</div>
 				</fieldset>
-				<output id="adjustedTime" name="adjustedTime" for="minutes seconds recommendedWattage microwaveWattage">--:--</output>
+				<output id="adjustedTime" name="adjustedTime" for="minutes seconds recommendedWattage microwaveWattage">
+					<time aria-label="Time not set">--:--</time>
+				</output>
 			<!--   <input type="reset"> -->
 			</form>
 		</main>
