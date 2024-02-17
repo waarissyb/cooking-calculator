@@ -357,7 +357,7 @@
 			
 			[type="number"] {
 				margin-right: 0.5rem;
-				width: calc(4ch + 2rem);
+				width: calc(5ch + 2rem);
 				font-feature-settings: 'tnum';
 				background: var(--background-color);
 				color: var(--text-color);
@@ -431,9 +431,16 @@
 			)()">
 				<fieldset>
 					<legend>Recommended time</legend>
-					<label><input type="number" name="minutes" id="m" value="0" min="0" max="59" step="1" inputmode="numeric" maxlength="2" required oninput="this.value = this.value.slice(0, 2)">minutes</label>
-					<label><input type="number" name="seconds" id="s" value="0" min="0" max="59" step="1" list="suggestedSeconds" inputmode="numeric" maxlength="2" required oninput="this.value = this.value.slice(0, 2)">seconds</label>
+					<label><input type="number" name="minutes" id="m" value="" min="0" max="59" step="1" list="suggestedMinutes" inputmode="numeric" maxlength="2" required oninput="this.value = this.value.slice(0, 2)">minutes</label>
+					<datalist id="suggestedMinutes">
+						<option value="1"></option>
+						<option value="3"></option>
+						<option value="5"></option>
+						<option value="7"></option>
+					</datalist>
+					<label><input type="number" name="seconds" id="s" value="" min="0" max="59" step="1" list="suggestedSeconds" inputmode="numeric" maxlength="2" required oninput="this.value = this.value.slice(0, 2)">seconds</label>
 					<datalist id="suggestedSeconds">
+						<option value="0"></option>
 						<option value="15"></option>
 						<option value="30"></option>
 						<option value="45"></option>
