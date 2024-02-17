@@ -416,9 +416,7 @@
 		<main>
 			<form oninput="
 			this.adjustedTime.value=(
-				(m, s, rw=this.recommendedWattage.value, mw=this.microwaveWattage.value) => {
-					const minutes = parseInt(m, 10);
-					const seconds = parseInt(s, 10);
+				(minutes=this.minutes.valueAsNumber, seconds=this.seconds.valueAsNumber, rw=this.recommendedWattage.value, mw=this.microwaveWattage.value) => {
 					const recommendedWattage = parseInt(rw, 10);
 					const microwaveWattage = parseInt(mw, 10);
 					if (isNaN(minutes) || isNaN(seconds) || isNaN(recommendedWattage) || isNaN(microwaveWattage)) {
@@ -429,7 +427,7 @@
 					const adjustedSeconds = Math.round(totalSeconds % 60).toString().padStart(2, '0');
 					return `${adjustedMinutes}:${adjustedSeconds}`;
 				}
-			)(this.minutes.value, this.seconds.value)">
+			)()">
 				<fieldset>
 					<legend>Recommended time</legend>
 					<label><input type="number" name="minutes" id="m" value="0" min="0" max="59" step="1" inputmode="decimal" required>minutes</label>
